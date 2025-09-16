@@ -21,18 +21,30 @@ public class Building : MonoBehaviour
 
     public BuildingEvents buildingEvents;
 
-    void HandleDriverService(DeliveryDriver delivery)
+    private DeliveryOrderSystem orderSystem;
+
+    void HandleDriverService(DeliveryDriver deliver)
     {
         switch (BuildingType)
         {
             case BuildingType.Restautant:
-                Debug.Log($"{buildingName} 에서 배달 완료");
+               if(orderSystem != null)
+                {
+                    orderSystem.OnDriverEnteredRestaurant(this);
+                }
                 break;
             case BuildingType.Coustomer:
-                Debug.Log($"{buildingName} 에서 음식을 픽업 했습니다.");
+                if (orderSystem != null)
+                {
+                    orderSystem.OnDriverEnteredRestaurant(this);
+                }
+                else
+                {
+                    deliver.CompleteDelivery();
+                }
                 break;
             case BuildingType.ChargingStation:
-                Debug.Log($"{buildingName} 에서 베터리를 충전 했습니다.");
+                deliver.ChargeBattery();
                 break;
         }
     }
@@ -60,6 +72,8 @@ public class Building : MonoBehaviour
     void Start()
     {
         SetupBuilding();
+        orderSystem = FindObjectOfType<DeliveryOrderSystem>();
+        CreateNameTag();
     }
 
     void SetupBuilding()
@@ -86,4 +100,23 @@ public class Building : MonoBehaviour
         Collider col = GetComponent<Collider>();
         if(col != null) { col.isTrigger = true; }
     }
+
+    void CreateNameTag()
+    {
+        // 건물 위에 이름표 생성
+        GameObject nameTag = new GameObject("NameTage");
+        nameTag.transform.SetParent(transform);
+        nameTag.transform.localPosition = Vector3.up * 1.5f;
+
+        TextMesh textMesh  = nameTag.AddComponent<TextMesh>();
+        textMesh.text = buildingName;
+        textMesh.characterSize = 0.2f;
+        textMesh.anchor = TextAnchor.MiddleCenter;
+        textMesh.color = Color.white;
+        textMesh.fontSize = 20;
+
+        nameTag.AddComponent<Bildboard>();
+    }
+
+
 }
