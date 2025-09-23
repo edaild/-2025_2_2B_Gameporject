@@ -85,15 +85,12 @@ public class Building : MonoBehaviour
             switch (BuildingType) {
                 case BuildingType.Restautant:
                     mat.color = Color.red;
-                    buildingName = "음식점";
                     break;
                 case BuildingType.Coustomer:
                     mat.color = Color.green;
-                    buildingName = "고객 집";
                     break;
                 case BuildingType.ChargingStation:
                     mat.color = Color.yellow;
-                    buildingName = "충전소";
                     break;
             }
         }

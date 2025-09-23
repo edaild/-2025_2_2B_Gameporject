@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 // 간단한 배달 주문
 [System.Serializable]
-public class DeliveryOrder : MonoBehaviour
+public class DeliveryOrder
 {
     public int orderId;
     public string restaurantName;
