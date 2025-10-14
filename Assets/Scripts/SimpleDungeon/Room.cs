@@ -15,7 +15,7 @@ public class Room
         this.type = type;
     }
 
-    public Color getColor()
+    public Color GetColor()
     {
         switch (type)
         {
