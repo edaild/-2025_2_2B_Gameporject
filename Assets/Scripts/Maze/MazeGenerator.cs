@@ -20,6 +20,14 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] maze;                       
     private Stack<MazeCell> cellstack;                          //DFS를 위한 스택
+
+    public void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -115,7 +123,7 @@ public class MazeGenerator : MonoBehaviour
         //if (cell.x > 0 && !maze[cell.x + 1, cell.z].visited)
         //    neighbors.Add(maze(cell.x + 1, cell.z));
 
-        //if (cell.x > 0 && !maze[cell.x, cell.z -1].visited)
+        //if (cell.x > 0 && !maze[cell.x, cell.z - 1].visited)
         //    neighbors.Add(maze(cell.x, cell.z - 1));
 
         //if (cell.x > 0 && !maze[cell.x, cell.z + 1].visited)
